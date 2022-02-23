@@ -4,9 +4,9 @@ import { Logger } from './logger'
 import { initialize } from './services'
 import createBaseWorker from './workers/index?worker'
 import indexPreload from '/@preload/index'
-import anotherPreload from '/@preload/another'
+// import anotherPreload from '/@preload/another'
 import indexHtmlUrl from '/@renderer/index.html'
-import sideHtmlUrl from '/@renderer/side.html'
+// import sideHtmlUrl from '/@renderer/side.html'
 import logoUrl from '/@static/logo.png'
 
 async function main() {
@@ -18,6 +18,8 @@ async function main() {
     // const [x, y] = main.getPosition()
     // const side = createSecondWindow()
     // side.setPosition(x + 800 + 5, y)
+    main.maximize();
+    main.show();
   })
   // thread_worker example
   createBaseWorker({ workerData: 'worker world' }).on('message', (message) => {
@@ -28,35 +30,34 @@ async function main() {
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
     webPreferences: {
       preload: indexPreload,
       contextIsolation: true,
       nodeIntegration: false,
-      devTools: false
+      devTools: true
     },
-    icon: logoUrl
+    icon: logoUrl,
+    show: false
   })
 
   mainWindow.loadURL(indexHtmlUrl)
   return mainWindow
 }
 
-function createSecondWindow() {
-  const sideWindow = new BrowserWindow({
-    height: 600,
-    width: 300,
-    webPreferences: {
-      preload: anotherPreload,
-      contextIsolation: true,
-      nodeIntegration: false
-    }
-  })
+// function createSecondWindow() {
+//   const sideWindow = new BrowserWindow({
+//     height: 600,
+//     width: 300,
+//     webPreferences: {
+//       preload: anotherPreload,
+//       contextIsolation: true,
+//       nodeIntegration: false
+//     }
+//   })
 
-  sideWindow.loadURL(sideHtmlUrl)
-  return sideWindow
-}
+//   sideWindow.loadURL(sideHtmlUrl)
+//   return sideWindow
+// }
 
 // ensure app start as single instance
 if (!app.requestSingleInstanceLock()) {
