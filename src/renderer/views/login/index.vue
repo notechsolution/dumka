@@ -9,7 +9,7 @@
 		</div>
 		<div class="login-content">
 			<div class="login-content-main">
-				<h4 class="login-content-title ml15">{{ getThemeConfig.globalTitle }}后台模板</h4>
+				<h4 class="login-content-title ml15">{{ getThemeConfig.productName }}</h4>
 				<div v-if="!isScan">
 					<el-tabs v-model="tabsActiveName">
 						<el-tab-pane :label="$t('message.label.one1')" name="account">
